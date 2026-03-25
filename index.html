@@ -84,25 +84,25 @@ body {
 }
 
 /* Flor */
-.flor {
+  .flor {
   position: absolute;
-  width: 14px;
-  height: 14px;
-  background: yellow;
+  width: 20px;
+  height: 20px;
+  background: #FFD700;
   border-radius: 50%;
   transform: scale(0);
-  animation: crecer 0.6s ease forwards;
-  box-shadow:
-    0 -6px 0 yellow,
-    0 6px 0 yellow,
-    6px 0 0 yellow,
-    -6px 0 0 yellow,
-    4px 4px 0 yellow,
-    -4px -4px 0 yellow,
-    -4px 4px 0 yellow,
-    4px -4px 0 yellow;
-}
+  animation: crecer 0.5s ease forwards;
 
+  box-shadow:
+    0 -10px 0 #FFD700,
+    0 10px 0 #FFD700,
+    10px 0 0 #FFD700,
+    -10px 0 0 #FFD700,
+    7px 7px 0 #FFD700,
+    -7px -7px 0 #FFD700,
+    -7px 7px 0 #FFD700,
+    7px -7px 0 #FFD700;
+}
 /* Animación crecer */
 @keyframes crecer {
   to {
@@ -130,16 +130,18 @@ const card = document.querySelector(".card");
 function crearCorazon() {
   let delay = 0;
 
-  for (let t = 0; t < Math.PI * 2; t += 0.02) {
+  for (let t = 0; t < Math.PI * 2; t += 0.015) {
+
     let x = 16 * Math.pow(Math.sin(t), 3);
     let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 8; i++) {
+
       let flor = document.createElement("div");
       flor.classList.add("flor");
 
-      let offsetX = (Math.random() - 0.5) * 12;
-      let offsetY = (Math.random() - 0.5) * 12;
+      let offsetX = (Math.random() - 0.5) * 18;
+      let offsetY = (Math.random() - 0.5) * 18;
 
       flor.style.left = (160 + x * 5 + offsetX) + "px";
       flor.style.top = (210 + y * 5 + offsetY) + "px";
@@ -148,13 +150,10 @@ function crearCorazon() {
 
       card.appendChild(flor);
 
-      delay += 0.002;
+      delay += 0.0015;
     }
   }
 }
-
-crearCorazon();
-
 /* Fecha */
 const inicio = new Date("2024-02-18 00:00:00");
 
