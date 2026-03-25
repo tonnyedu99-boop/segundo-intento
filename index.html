@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flores Amarillas 💛</title>
+
+<style>
+body {
+  margin: 0;
+  background: #ff4d88;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial;
+}
+
+/* Carta */
+.card {
+  background: #f5e6da;
+  width: 300px;
+  height: 400px;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Texto */
+.texto {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 14px;
+}
+
+/* Contador */
+.timer {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 12px;
+}
+
+/* Árbol */
+.tronco {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 10px;
+  height: 80px;
+  background: brown;
+  transform: translateX(-50%);
+}
+
+/* Flores */
+.flor {
+  position: absolute;
+  font-size: 10px;
+  color: gold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <div class="texto">Mi amor por ti comenzó hace...</div>
+  <div class="timer" id="timer"></div>
+  <div class="tronco"></div>
+</div>
+
+<script>
+const card = document.querySelector(".card");
+
+/* Crear corazón con flores */
+function crearCorazon() {
+  for (let t = 0; t < Math.PI * 2; t += 0.05) {
+    let x = 16 * Math.pow(Math.sin(t), 3);
+    let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+
+    let flor = document.createElement("div");
+    flor.classList.add("flor");
+    flor.innerHTML = "🌼";
+
+    flor.style.left = (150 + x * 5) + "px";
+    flor.style.top = (200 + y * 5) + "px";
+
+    card.appendChild(flor);
+  }
+}
+
+crearCorazon();
+
+/* Contador de tiempo */
+const inicio = new Date("2025-03-20 00:00:00"); // CAMBIA ESTA FECHA
+
+function actualizarTiempo() {
+  const ahora = new Date();
+  const diff = ahora - inicio;
+
+  let dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+  let horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  let minutos = Math.floor((diff / (1000 * 60)) % 60);
+  let segundos = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("timer").innerText =
+    `${dias} días ${horas} horas ${minutos} minutos ${segundos} segundos`;
+}
+
+setInterval(actualizarTiempo, 1000);
+</script>
+
+</body>
+</html>
