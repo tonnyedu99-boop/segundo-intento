@@ -23,6 +23,13 @@ body {
   border-radius: 20px;
   position: relative;
   overflow: hidden;
+  animation: latido 2s infinite;
+}
+
+/* Latido */
+@keyframes latido {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
 }
 
 /* Texto */
@@ -83,6 +90,8 @@ body {
   height: 14px;
   background: yellow;
   border-radius: 50%;
+  transform: scale(0);
+  animation: crecer 0.6s ease forwards;
   box-shadow:
     0 -6px 0 yellow,
     0 6px 0 yellow,
@@ -92,6 +101,13 @@ body {
     -4px -4px 0 yellow,
     -4px 4px 0 yellow,
     4px -4px 0 yellow;
+}
+
+/* Animación crecer */
+@keyframes crecer {
+  to {
+    transform: scale(1);
+  }
 }
 </style>
 </head>
@@ -110,24 +126,29 @@ body {
 <script>
 const card = document.querySelector(".card");
 
-/* Corazón lleno con flores */
+/* Corazón animado */
 function crearCorazon() {
+  let delay = 0;
+
   for (let t = 0; t < Math.PI * 2; t += 0.02) {
     let x = 16 * Math.pow(Math.sin(t), 3);
     let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
 
-    // Relleno del corazón
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 4; i++) {
       let flor = document.createElement("div");
       flor.classList.add("flor");
 
-      let offsetX = (Math.random() - 0.5) * 15;
-      let offsetY = (Math.random() - 0.5) * 15;
+      let offsetX = (Math.random() - 0.5) * 12;
+      let offsetY = (Math.random() - 0.5) * 12;
 
       flor.style.left = (160 + x * 5 + offsetX) + "px";
       flor.style.top = (210 + y * 5 + offsetY) + "px";
 
+      flor.style.animationDelay = delay + "s";
+
       card.appendChild(flor);
+
+      delay += 0.002;
     }
   }
 }
