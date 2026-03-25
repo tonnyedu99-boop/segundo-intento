@@ -8,7 +8,7 @@
 <style>
 body {
   margin: 0;
-  background: #ff4d88;
+  background: linear-gradient(to top, #ff4d88, #ff99cc);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,12 +19,13 @@ body {
 /* Carta */
 .card {
   background: #f5e6da;
-  width: 300px;
-  height: 400px;
+  width: 320px;
+  height: 420px;
   border-radius: 20px;
   position: relative;
   overflow: hidden;
   text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 /* Texto */
@@ -43,22 +44,44 @@ body {
   font-size: 12px;
 }
 
-/* Árbol */
+/* Tronco principal */
 .tronco {
   position: absolute;
   bottom: 0;
   left: 50%;
-  width: 10px;
-  height: 80px;
-  background: brown;
+  width: 20px;
+  height: 100px;
+  background: #5c3b1e;
   transform: translateX(-50%);
+  border-radius: 10px;
+}
+
+/* Ramas */
+.rama {
+  position: absolute;
+  width: 60px;
+  height: 8px;
+  background: #5c3b1e;
+  border-radius: 10px;
+}
+
+.rama.izq {
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-100%) rotate(-30deg);
+}
+
+.rama.der {
+  bottom: 90px;
+  left: 50%;
+  transform: rotate(30deg);
 }
 
 /* Flores */
 .flor {
   position: absolute;
-  font-size: 10px;
-  color: gold;
+  font-size: 14px;
+  color: #FFD700;
 }
 </style>
 </head>
@@ -68,15 +91,18 @@ body {
 <div class="card">
   <div class="texto">Mi amor por ti comenzó hace...</div>
   <div class="timer" id="timer"></div>
+
   <div class="tronco"></div>
+  <div class="rama izq"></div>
+  <div class="rama der"></div>
 </div>
 
 <script>
 const card = document.querySelector(".card");
 
-/* Crear corazón con flores */
+/* Corazón con flores */
 function crearCorazon() {
-  for (let t = 0; t < Math.PI * 2; t += 0.05) {
+  for (let t = 0; t < Math.PI * 2; t += 0.04) {
     let x = 16 * Math.pow(Math.sin(t), 3);
     let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
 
@@ -84,7 +110,7 @@ function crearCorazon() {
     flor.classList.add("flor");
     flor.innerHTML = "🌼";
 
-    flor.style.left = (150 + x * 5) + "px";
+    flor.style.left = (160 + x * 5) + "px";
     flor.style.top = (200 + y * 5) + "px";
 
     card.appendChild(flor);
@@ -93,7 +119,7 @@ function crearCorazon() {
 
 crearCorazon();
 
-/* Contador de tiempo */
+/* Fecha */
 const inicio = new Date("2024-02-18 00:00:00");
 
 function actualizarTiempo() {
